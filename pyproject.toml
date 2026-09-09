@@ -9,6 +9,7 @@ authors = [
 requires-python = ">=3.13"
 dependencies = [
     "fastapi",
+    "git-filter-repo>=2.47.0",
     "matplotlib>=3.11.1",
     "numpy>=2.5.2",
     "python-multipart>=0.0.32",
