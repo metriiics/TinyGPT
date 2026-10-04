@@ -9,12 +9,12 @@ authors = [
 requires-python = ">=3.13,<3.14"
 dependencies = [
     "datasets>=4",
-    "fastapi",
-    "git-filter-repo>=2.47.0",
     "matplotlib>=3.11.1",
+    "mlflow>=3.16.1",
     "numpy>=2.1",
+    "psutil>=7.2.2",
+    "pynvml>=13.0.1",
     "python-dotenv>=1.2.3",
-    "python-multipart>=0.0.32",
     "tiktoken>=0.14.0",
     "tokenizers>=0.23.2",
     "torch>=2.11.0",
