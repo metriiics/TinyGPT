@@ -6,7 +6,7 @@ import torch.optim as op
 from tokenizers import Tokenizer
 
 from model.config import GPTConfig
-from utils.data import GPTDataset
+from utils.data import GPTDataset, BinDataset
 from utils.train import train_model
 from utils.plotting import plot_losses
 from model.gpt import GPTModel
@@ -19,23 +19,17 @@ tokenizer = Tokenizer.from_file("Tokenizer/vocabulary/tokenizer.json")
 with open("parameters.json", "r", encoding="utf-8") as file:
     cfg = json.load(file)
 
-conf = GPTConfig(**cfg["SMALL_GPT_CONFIG"])
+conf = GPTConfig(**cfg["TINY_GPT_CONFIG"])
 
-with open("fkj.txt", "r", encoding="utf-8") as file:
-    text = file.read()
+batch_size = 64
 
-batch_size = 16
-train_ratio = 0.9
-split_idx = int(train_ratio * len(text))
-train_data = GPTDataset(
-    text[:split_idx],
-    tokenizer,
+train_data = BinDataset(
+    r"datasets\processed\train.bin",
     max_length=conf.context_length,
     stride=conf.context_length
 )
-val_data = GPTDataset(
-    text[split_idx:],
-    tokenizer, 
+val_data = BinDataset(
+    r"datasets\processed\val.bin",
     max_length=conf.context_length,
     stride=conf.context_length
 )
@@ -68,7 +62,7 @@ num_epochs = 50
 train_losses, val_losses, tokens_seen = train_model(
     model, train_dl, valid_dl, optim, device, 
     num_epochs=num_epochs, eval_freq=5, eval_iter=5,
-    start_context="llama.cpp – среда для инференса", tokenizer=tokenizer
+    start_context="Ма́монты () — вымерший род", tokenizer=tokenizer
 )
 
 epochs_tensor = torch.linspace(0, num_epochs, len(train_losses))

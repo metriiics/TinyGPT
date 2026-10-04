@@ -1,5 +1,6 @@
 import torch
 from torch.utils.data import Dataset
+import numpy as np
 
 
 class GPTDataset(Dataset):
@@ -21,3 +22,29 @@ class GPTDataset(Dataset):
 
     def __getitem__(self, index):
         return self.input_ids[index], self.target_ids[index]
+
+
+class BinDataset(Dataset):
+    def __init__(self, filename, max_length, stride):
+        self.data = np.memmap(
+            filename,
+            dtype=np.uint16,
+            mode="r"
+        )
+
+        self.context_length = max_length
+        self.stride = stride
+
+    def __len__(self):
+        return (len(self.data) - self.context_length) // self.stride
+
+    def __getitem__(self, idx):
+        start = idx * self.stride
+
+        x = self.data[start:start + self.context_length]
+        y = self.data[start + 1:start + self.context_length + 1]
+
+        return (
+            torch.from_numpy(x.astype(np.int64)),
+            torch.from_numpy(y.astype(np.int64))
+        )

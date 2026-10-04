@@ -6,12 +6,14 @@ readme = "README.md"
 authors = [
     { name = "metriiics", email = "metriics@yandex.ru" }
 ]
-requires-python = ">=3.13"
+requires-python = ">=3.13,<3.14"
 dependencies = [
+    "datasets>=4",
     "fastapi",
     "git-filter-repo>=2.47.0",
     "matplotlib>=3.11.1",
-    "numpy>=2.5.2",
+    "numpy>=2.1",
+    "python-dotenv>=1.2.3",
     "python-multipart>=0.0.32",
     "tiktoken>=0.14.0",
     "tokenizers>=0.23.2",
@@ -26,8 +28,13 @@ tinygpt = "main:main"
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
+[tool.uv.sources]
+torch = { index = "pytorch" }
+
 [[tool.uv.index]]
+name = "pytorch"
 url = "https://download.pytorch.org/whl/cu128"
+explicit = true
 
 [tool.uv]
 package = false

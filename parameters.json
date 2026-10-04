@@ -12,7 +12,7 @@
 
 "TINY_GPT_CONFIG":
     {
-        "vocab_size": 21000,
+        "vocab_size": 21823,
         "context_length": 256,
         "emb_dim": 256,
         "n_heads": 4,

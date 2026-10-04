@@ -18,6 +18,6 @@ trainer = BpeTrainer(
 tokenizer.pre_tokenizer = pre_tok.ByteLevel()
 tokenizer.decoder = ByteLevel()
 
-tokenizer.train(["fkj.txt"], trainer)
+tokenizer.train(["output.txt"], trainer)
 
 tokenizer.save("Tokenizer/vocabulary/tokenizer.json")
