@@ -1,19 +1,18 @@
 import json
 import os
 
-from dotenv import load_dotenv
-
 import mlflow
 import torch
-from torch.utils.data import DataLoader
 import torch.optim as op
+from dotenv import load_dotenv
 from tokenizers import Tokenizer
+from torch.utils.data import DataLoader
 
 from model.config import GPTConfig
-from utils.data import BinDataset
-from utils.train import train_model
-from utils.plotting import plot_losses
 from model.gpt import GPTModel
+from utils.data import BinDataset
+from utils.plotting import plot_losses
+from utils.train import train_model
 
 load_dotenv()
 
@@ -30,7 +29,7 @@ with open("parameters.json", "r", encoding="utf-8") as file:
 
 conf = GPTConfig(**cfg["TINY_GPT_CONFIG"])
 
-batch_size = 64
+batch_size = 32
 num_epochs = 2
 lr = 0.0004
 weight_decay=0.1
@@ -90,14 +89,14 @@ with mlflow.start_run(run_name=run_name, log_system_metrics=True) as run:
     mlflow.set_tags(
         {
             "model": "GPT-Tiny",
-            "dataset": "None",
+            "dataset": "PotatoHD/ru-text-corpus",
             "device": str(device)
         }
     )
 
     train_losses, val_losses, tokens_seen = train_model(
         model, train_dl, valid_dl, optim, device, 
-        num_epochs=num_epochs, eval_freq=5, eval_iter=5,
+        num_epochs=num_epochs, eval_freq=500, eval_iter=50,
         start_context="Ма́монты () — вымерший род", tokenizer=tokenizer
     )
 

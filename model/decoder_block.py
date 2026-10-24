@@ -1,7 +1,7 @@
 from torch import nn
 
-from model.ffn import FeedForwardNetwork
 from model.attention import MaskedMultiHeadAttention
+from model.ffn import FeedForwardNetwork
 
 
 class TransformerDecoderBlock(nn.Module):

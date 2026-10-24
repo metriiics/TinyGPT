@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 
+
 def plot_losses(epochs_seen, tokens_seen, 
                 train_losses, val_losses):
     fig, ax1 = plt.subplots(figsize=(5, 3))

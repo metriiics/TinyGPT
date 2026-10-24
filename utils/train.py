@@ -1,9 +1,9 @@
 import time
 
-import torch
 import mlflow
+import torch
 
-from utils.func_loss import cals_loss_batch, calc_loss_loader
+from utils.func_loss import calc_loss_loader, cals_loss_batch
 from utils.gen import generate
 
 

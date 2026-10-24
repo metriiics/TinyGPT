@@ -1,5 +1,6 @@
 from torch import nn
 
+
 class FeedForwardNetwork(nn.Module):
     def __init__(self, cfg):
         super().__init__()
