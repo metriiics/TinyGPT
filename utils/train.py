@@ -7,7 +7,6 @@ import torch
 from utils.checkpoint import save_checkpoint
 from utils.func_loss import calc_loss_loader, cals_loss_batch
 from utils.gen import generate
-from utils.plotting import loss_image
 
 
 def train_model(model, train_loader, val_loader,
@@ -88,12 +87,6 @@ def train_model(model, train_loader, val_loader,
                             "tokens_seen": tokens_seen,
                             "epoch": epoch
                         },
-                        step=global_step
-                    )
-                    # картинка с шагом попадает в Model metrics как карточка Image grid
-                    mlflow.log_image(
-                        loss_image(track_token_seen, train_losses, val_losses),
-                        key="loss_plot",
                         step=global_step
                     )
 
